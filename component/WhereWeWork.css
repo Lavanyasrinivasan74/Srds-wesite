@@ -27,6 +27,7 @@
 /* Special Overlay */
 .special-overlay {
   position: relative;
+  overflow: hidden; /* Prevents overlay from going outside the image */
 }
 
 /* Zoom-in Effect on Hover */
@@ -39,9 +40,9 @@
 .special-overlay .overlay {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 100%; /* Initially off-screen to the right */
+  width: 100%;
+  height: 100%;
   background-color: #055475; /* Solid blue overlay */
   color: white;
   display: flex;
@@ -49,14 +50,18 @@
   align-items: center;
   font-size: 18px;
   font-weight: bold;
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.3s ease-in-out; /* Smooth show/hide effect */
+  transition: transform 0.4s ease-in-out, left 0.4s ease-in-out; /* Smooth slide effect */
+  transform: translateX(0);
 }
 
-/* Show Overlay on Hover */
-.special-overlay:hover .overlay,
+/* Hover Effect: Slide from Right to Left */
+.special-overlay:hover .overlay {
+  left: 0; /* Brings the overlay into view */
+}
+
+/* Active Effect: Slide from Left to Right */
 .special-overlay:active .overlay {
-  opacity: 1; /* Make overlay visible */
+  left: -100%; /* Moves overlay off-screen to the left */
 }
 
 /* Modal Styling */
@@ -112,18 +117,19 @@
 /* Close Button */
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 10px; /* Keep the button near the top */
+  right: 10px; /* Align it to the right side of the modal */
   background: none;
-  font-weight: bold;
   border: none;
-  font-size: 30px;
-  color: #333;
+  font-size: 40px; /* Adjust size as needed */
+  font-weight: 400;
+  color: #1b1b1b;
   cursor: pointer;
+  z-index: 1100; 
 }
 
 .close-button:hover {
-  color: #000;
+  color: #b87c7c;
 }
 
 /* Navigation Buttons */
@@ -131,12 +137,13 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 30px;
+  font-size: 60px;
   background: none;
+  font-size: bold;
   border: none;
-  color: white;
+  color: rgb(211, 193, 193);
   cursor: pointer;
-  padding: 10px;
+  padding: 30px;
 }
 
 .nav-button.left {
